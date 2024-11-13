@@ -1,0 +1,5 @@
+rootProject.name = 'module-sample'
+
+include 'front'
+include 'backend1'
+include 'backend2'

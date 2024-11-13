@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>애플리케이션</title>
+</head>
+<body>
+    <h1>검색화면</h1>
+    <div>
+        <button onclick="search()">검색</button>
+    </div>
+</body>
+<script src="/js/ajax.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+    function search() {
+        ajax(
+            'http://localhost:8081/search',
+            'GET'
+        ).then(() => {
+            console.log("성공");
+        }).catch((error) => console.log(error));
+
+        // $.ajax({
+        //     crossOrigin : true,
+        //     url: 'http://localhost:8081/search',
+        //     method: 'get',
+        //     dataType : 'html',
+        //     success: function (data, status, xhr) {
+        //         // console.log("data : : " + JSON.stringify(data));
+        //         // $("#search_result").empty();
+        //         // $("#search_result").replaceWith(data);
+        //     },
+        //     error: function (data, status, err) {
+        //     },
+        //     complete: function () {
+        //         // var total = $("#dataCount").val();
+        //         // $("#totalCount").text(addComma(total));
+        //     }
+        // });
+    }
+</script>
+</html>
