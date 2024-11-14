@@ -1,2 +1,11 @@
 server:
-  port: 8082
+  port: 8083
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://43.203.224.190:3306/test
+    username: root
+    password: chaorda1
+  jpa:
+    hibernate:
+      ddl-auto: none

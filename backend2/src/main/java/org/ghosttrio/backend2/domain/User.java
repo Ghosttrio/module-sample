@@ -1,4 +1,4 @@
-package org.ghosttrio.backend1.domain;
+package org.ghosttrio.backend2.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
