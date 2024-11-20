@@ -26,12 +26,12 @@ public class UserController {
 //        return new OrderSpecifier<>(Order.DESC, user.age);
 //    }
 
-    @PostMapping("/order2")
+    @PostMapping("/order3")
     public List<User> order2(@RequestBody List<User> list) {
-        return list.stream().filter(a -> a.getAge() >= 20).sorted(Comparator.comparing(User::getAge)).toList();
+        return list.stream().sorted(Comparator.comparing(User::getAge)).toList();
     }
 
-    @GetMapping("/result")
+    @GetMapping("/order4")
     public List<User> result() {
         return query.selectFrom(user)
                 .where(user.age.gt(20))

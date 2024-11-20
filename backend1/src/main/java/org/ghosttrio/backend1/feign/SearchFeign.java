@@ -11,16 +11,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @FeignClient(
-        name = "SearchFeign", url = "http://localhost:8083"
+        name = "SearchFeign", url = "http://localhost:8083" // AI 서버
 )
 public interface SearchFeign {
 
+    /* 2번 방법 */
 //    @GetMapping("/order1")
 //    OrderSpecifier<?> getOrder();
 
-    @PostMapping("/order2")
+    /* 3번 방법 */
+    @PostMapping("/order3")
     List<User> getOrder(@RequestBody List<User> list);
 
-    @GetMapping("/result")
+    /* 4번 방법 */
+    @GetMapping("/order4")
     List<User> getResult();
 }

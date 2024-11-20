@@ -21,13 +21,15 @@
 <script>
     function search() {
         ajax(
+            // backend1로 요청
             'http://localhost:8081/search',
             'GET'
         )
             .then(response => response.json())
             .then(result => {
                 $(".title").html(result.logic);
-                $.each(result.list, function(index, item) { // 데이터 =item
+                $(".content").empty();
+                $.each(result.list, function(index, item) {
                     $(".content").append(" ["+ item.name + " " + item.age + "] ");
                 });
             }).catch((error) => console.log(error));

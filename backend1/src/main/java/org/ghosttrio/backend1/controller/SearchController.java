@@ -14,13 +14,8 @@ public class SearchController {
 
     private final UserService userService;
 
-    @GetMapping("/test")
-    public String test() {
-        return "ok";
-    }
-
     @GetMapping("/search")
     public UserResponse search() {
-        return userService.search4();
+        return userService.algorithmA();
     }
 }

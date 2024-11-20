@@ -21,18 +21,35 @@ public class UserService {
     private final JPAQueryFactory query;
     private final SearchFeign searchFeign;
 
-    public UserResponse search() {
-        List<User> result = query.selectFrom(user) // 조회
-                .where(user.age.gt(20)) // 조건
-                .orderBy(user.age.desc()) // 정렬
+    /* 프론트 코드 수정 없이 알고리즘 A, B, C 교체 */
+    public UserResponse algorithmA() {
+        List<User> result = query.selectFrom(user) 
+                .where(user.age.goe(25))
+                .orderBy(user.age.desc()) 
                 .fetch();
-        return new UserResponse(result, "기본 방법");
+        return new UserResponse(result, "A 방법 - 25살 이상 내림차순");
     }
 
-    /* 1번 방법 */
+    public UserResponse algorithmB() {
+        List<User> result = query.selectFrom(user)
+                .where(user.age.goe(20))
+                .orderBy(user.age.desc())
+                .fetch();
+        return new UserResponse(result, "B 방법 - 20살 이상 내림차순");
+    }
+
+    public UserResponse algorithmC() {
+        List<User> result = query.selectFrom(user)
+                .where(user.age.goe(20))
+                .orderBy(user.age.asc())
+                .fetch();
+        return new UserResponse(result, "C 방법 - 20살 이상 오름차순");
+    }
+
+    /* 1번 방법 : order by 부분만 분리 */
     public UserResponse search1() {
         List<User> result = query.selectFrom(user)
-                .where(user.age.gt(20))
+                .where(user.age.goe(20))
                 .orderBy(order1())
                 .fetch();
         return new UserResponse(result, "1번 방법");
@@ -42,7 +59,7 @@ public class UserService {
         return new OrderSpecifier<>(Order.DESC, user.age);
     }
 
-    /* 2번 방법 -> 안됨 */
+    /* 2번 방법 : 외부 모듈에서 order by 객체를 불러오는 방법 -> 안됨 */
 //    public UserResponse search2() {
 //        List<User> result = query.selectFrom(user)
 //                .where(user.age.gt(20))
@@ -55,14 +72,16 @@ public class UserService {
 //        return searchFeign.getOrder();
 //    }
 
-    /* 3번 방법 */
+    /* 3번 방법 : 검색 결과를 다른 모듈에 보내서 정렬 후 결과 받아오는 방법 */
     public UserResponse search3() {
-        List<User> list = query.selectFrom(user).fetch();
+        List<User> list = query.selectFrom(user)
+                .where(user.age.goe(20))
+                .fetch();
         List<User> result = searchFeign.getOrder(list);
         return new UserResponse(result, "3번 방법");
     }
 
-    /* 4번 방법 */
+    /* 4번 방법 : 검색 자체를 다른 모듈에서 수행 */
     public UserResponse search4() {
         List<User> result = searchFeign.getResult();
         return new UserResponse(result, "4번 방법");
